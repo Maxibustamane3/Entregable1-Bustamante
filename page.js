@@ -1,36 +1,39 @@
-const listaInvitados = [];
+const lista = document.getElementById("lista");
+const formulario = document.getElementById("formularioInvitado");
+const inputNombre = document.getElementById("nombre");
+const selectGenero = document.getElementById("genero");
 
-function agregarInvitado() {
-    let nombreInvitado = prompt("Ingresar nombre del invitado o escribe 'salir' para terminar la lista");
+let listaInvitados = JSON.parse(localStorage.getItem("invitados")) || [];
 
-    if (nombreInvitado === "salir") {
-        return false;
-    }
-
-    if (nombreInvitado === "") {
-        alert("No ingresaste un nombre válido.");
-        return true;
-    }
-
-    let generoInvitado = prompt("Ingresar el género del invitado (Hombre o Mujer)").toLowerCase();
-
-    if (generoInvitado !== "hombre" && generoInvitado !== "mujer") {
-        alert("Por favor, ingresa 'Hombre' o 'Mujer'.");
-        return true;
-    }
-
-    listaInvitados.push(` ${nombreInvitado} y es ${generoInvitado}`);
-    alert("Invitado agregado con éxito.");
-    return true;
+function Listacumpleaños() {
+    lista.innerHTML = "";
+    listaInvitados.forEach((invitado, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${invitado.nombre} (${invitado.genero})`;
+        lista.appendChild(li);
+    });
 }
 
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-while (agregarInvitado());
+    const nombre = inputNombre.value.trim();
+    const genero = selectGenero.value;
 
-alert("LOS INVITADOS SON:" + listaInvitados.join("\n"));
+    if (!nombre || !genero) {
+        alert("Por favor, completá todos los campos.");
+        return;
+    }
 
+    const nuevoInvitado = { nombre, genero };
+    listaInvitados.push(nuevoInvitado);
 
+    localStorage.setItem("invitados", JSON.stringify(listaInvitados));
+    Listacumpleaños();
 
+    formulario.reset();
+});
 
+Listacumpleaños();
 
 

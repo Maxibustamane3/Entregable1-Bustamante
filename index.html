@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiesta de Cumpleaños</title>
 </head>
 <body>
-    <script src="./page.js"></script>
+    <h1>Lista de Invitados</h1>
+
+    <form id="formularioInvitado">
+        <input type="text" id="nombre" placeholder="Nombre del invitado" required>
+        <select id="genero">
+            <option value="">Seleccionar género</option>
+            <option value="hombre">Hombre</option>
+            <option value="mujer">Mujer</option>
+        </select>
+        <button type="submit">Agregar</button>
+    </form>
+
+<h2>Invitados:</h2>
+<ul id="lista"></ul>
+
+<script src="./page.js"></script>
 </body>
 </html>
